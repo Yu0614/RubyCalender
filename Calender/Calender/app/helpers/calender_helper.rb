@@ -1,5 +1,2 @@
 module CalenderHelper
-    
-        
-    
 end
