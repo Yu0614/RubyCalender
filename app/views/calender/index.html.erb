@@ -7,6 +7,7 @@
 <% dateToday = Date.today %>
 <% today = dateToday.strftime( "%Y年%m月") %>
 <% month = dateToday.strftime( "%m") %>
+<% holidayJuly = Date.new(2018,7,16) %>
 
 <table border id="table">
     <caption id="caption"><%= today %></caption>
@@ -24,15 +25,27 @@
         <% 1.upto(6).each do|i|%>
             <tr class="calendar-row">
                 <% (d..d.end_of_week).each do|c|%>
-                    <%#　その日の日付を表示・todayクラス・todayIDの追加　%> 
-                    <% if c.day == dateToday.day %>
+                    <%# 祝日当日：その日の日付を表示・today holidfayクラス・todayIDの追加　%> 
+                    <% if c.day == dateToday.day && c.day == holidayJuly.day%>
+                        <th class="today holiday" id="today"><%= c.day %></th>
+                    <%#　当日：その日の日付を表示・todayクラス・todayIDの追加　%>  
+                    <% elsif c.day == dateToday.day %>
                         <th class="today" id="today"><%= c.day %></th>
-                    <%#　前月と次月の日付を表示・anotherMonthクラスの追加　%>   
+                    <%#　前月・次月：前月と次月の日付を表示・anotherMonthクラスの追加　%>
                     <% elsif c.month != dateToday.month %>
-                        <th class="anotherMonth"><%= c.day %></th>
-                    <%#　当月の日付を表示・rowクラスの追加　%>   
-                    <% elsif c.month == dateToday.month%>
-                        <th class="row"><%= c.day %></th>
+                        <th class="anotherMonthDay"><%= c.day %></th>
+                    <%#　当月の日曜を表示・sundayクラスの追加　%>  
+                    <% elsif c == d.end_of_week %>
+                        <th class="sunday"><%=  c.day %></th>
+                    <%#　当月の土曜を表示・saturdayクラスの追加　%>  
+                    <% elsif c == d.end_of_week-1 %>
+                        <th class="saturday"><%=  c.day %></th>
+                    <%#　当月の祝日を表示・holidayクラスの追加　%>  
+                    <% elsif c.day == holidayJuly.day %>
+                        <th class="holiday"><%=  c.day %></th>
+                    <%#　当月の日付を表示・weekdayクラスの追加　%>  
+                    <% elsif c.month == dateToday.month %>
+                        <th class="weekday"><%=   c.day %></th>
                     <% end %>
                 <% end %>
             </tr>

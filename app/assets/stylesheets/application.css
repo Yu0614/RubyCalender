@@ -36,11 +36,18 @@ th#sat {
 th#today {
     background: aquamarine;
 }
-th.anotherMonth {
+th.anotherMonthDay {
     color: silver;
 }
-th.row {
+th.weekday {
     color: black;
 }
-
-
+th.sunday {
+    color: red;
+}
+th.saturday {
+    color: blue;
+}
+th.holiday {
+    color:pink;
+}
