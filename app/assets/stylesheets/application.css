@@ -13,3 +13,34 @@
  *= require_tree .
  *= require_self
  */
+ p.info {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    border: double 5px grey;
+    width: 9vw;
+    text-align: center
+}
+.days {
+    width: 10vw;
+    height: 4vw;
+}
+tr.calendar-row {
+    height: 5vw;
+}
+th#sun {
+    color: red;
+}
+th#sat {
+    color: blue;
+}
+th#today {
+    background: aquamarine;
+}
+th.anotherMonth {
+    color: silver;
+}
+th.row {
+    color: black;
+}
+
+

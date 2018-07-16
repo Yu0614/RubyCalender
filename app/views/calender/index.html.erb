@@ -1,3 +1,43 @@
-<h1>Calender#index</h1>
+<p class="info">information</p>
+<p>
+・ページアクセス時の当日の月を取得し、表示するカレンダーです。
+アクセス時の日付もわかりやすく表示します。
+</p>
+<hr><br>
 
-<%= @cal%>
+<% dateToday = Date.today %>
+<% today = dateToday.strftime( "%Y年%m月") %>
+<% month = dateToday.strftime( "%m") %>
+
+<table border id="table">
+    <caption id="caption"><%= today %></caption>
+    <tr>
+        <th class="days" id="mon">月</th>
+        <th class="days" id="tue">火</th>
+        <th class="days" id="wed">水</th>
+        <th class="days" id="thu">木</th>
+        <th class="days" id="fri">金</th>
+        <th class="days" id="sat">土</th>
+        <th class="days" id="sun">日</th>
+    </tr>
+    <tr>
+        <% d = dateToday.at_beginning_of_month.at_beginning_of_week%>
+        <% 1.upto(6).each do|i|%>
+            <tr class="calendar-row">
+                <% (d..d.end_of_week).each do|c|%>
+                    <%#　その日の日付を表示・todayクラス・todayIDの追加　%> 
+                    <% if c.day == dateToday.day %>
+                        <th class="today" id="today"><%= c.day %></th>
+                    <%#　前月と次月の日付を表示・anotherMonthクラスの追加　%>   
+                    <% elsif c.month != dateToday.month %>
+                        <th class="anotherMonth"><%= c.day %></th>
+                    <%#　当月の日付を表示・rowクラスの追加　%>   
+                    <% elsif c.month == dateToday.month%>
+                        <th class="row"><%= c.day %></th>
+                    <% end %>
+                <% end %>
+            </tr>
+            <% d = d + 1.week %>
+        <% end %>
+    </tr>
+</table>
