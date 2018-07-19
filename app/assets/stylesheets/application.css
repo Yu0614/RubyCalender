@@ -13,11 +13,11 @@
  *= require_tree .
  *= require_self
  */
- p.info {
+ div.info {
     padding: 0.5em 1em;
     margin: 2em 0;
     border: double 5px grey;
-    width: 9vw;
+    width: 50vw;
     text-align: center
 }
 .days {

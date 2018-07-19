@@ -62,4 +62,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'holiday_jp', '~> 0.7.0'
-#gem 'holiday_japan', '~> 1.4', '>= 1.4.1'
+gem 'holiday_japan', '~> 1.4', '>= 1.4.1'

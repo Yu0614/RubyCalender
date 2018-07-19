@@ -1,19 +1,42 @@
-<% dateToday = Date.today %>
+<% 
+ require 'holiday_jp'
+ require 'holiday_japan'
+ 
+ %>
+<% dateToday = Date.today  %>
 <% today = dateToday.strftime( "%Y年%m月") %>
 <% month = dateToday.strftime( "%m") %>
 <% holidayJuly = Date.new(2018,7,16) %>
+<% days = %w[日 月 火 水 木 金 土] %>
+<% last = 6-dateToday.wday %>   
+<% rest = last.to_s %>           
 <% 
- #require 'holiday_jp'
- #require 'holiday_japan'
+if HolidayJapan.check(dateToday) == true
+    holidayName = HolidayJapan.name(dateToday) + ' です！ 祝日を謳歌しましょう！！'
+    else
+        if  dateToday.wday != 5 || dateToday.wday != 6
+            holidayName = days[dateToday.wday]+'曜日です！ 次の休みまであと'+rest.to_s+'日です！頑張りましょう！'
+            else
+            holidayName = days[dateToday.wday]+'曜日です！ ゆっくり休みましょう！'
+        end
+end
+%> 
 
- list = HolidayJapan.list_year(2018)%>
+<div class="info">
 <p class="info">information</p>
-<p>
-・ページアクセス時の当日の月を取得し、表示するカレンダーです。
-アクセス時の日付もわかりやすく表示します。
-</p>
-<p>Today:<%= dateToday %></p><hr><br>
+    <p>
+    ・ページアクセス時の当日の月を取得し、表示するカレンダーです。
+    アクセス時の日付もわかりやすく表示します。
+    </p>
+    <p>
+    7/20 追記：祝日判定を実装しました。
+    当日が祝日の場合、祝日名とコメントを表示します。
+    そうでない場合はその日の曜日とコメント及び次の休みまであと何日かを表示します。
+    </p>
+</div>
 
+<p class="today">Today:<%= dateToday %></p>
+<p class="holidayName">今日は <%= holidayName %></p><hr><br>
 <table border id="table">
     <caption id="caption"><%= today %></caption>
     <tr>
@@ -31,7 +54,7 @@
             <tr class="calendar-row">
                 <% (d..d.end_of_week).each do|c|%>
                     <%# 祝日当日：その日の日付を表示・today holidayクラス・todayIDの追加　%> 
-                    <% if c.day == dateToday.day && c.day == holidayJuly.day%>
+                    <% if c.day == dateToday.day && HolidayJapan.check(dateToday) == true %>
                         <th class="today holiday" id="today"><%= c.day %></th>
                     <%#　当日：その日の日付を表示・todayクラス・todayIDの追加　%>  
                     <% elsif c.day == dateToday.day %>
