@@ -1,13 +1,18 @@
-<p class="info">information</p>
-<p>
-・ページアクセス時の当日の月を取得し、表示するカレンダーです。
-アクセス時の日付もわかりやすく表示します。
-</p><hr><br>
-
 <% dateToday = Date.today %>
 <% today = dateToday.strftime( "%Y年%m月") %>
 <% month = dateToday.strftime( "%m") %>
 <% holidayJuly = Date.new(2018,7,16) %>
+<% 
+ #require 'holiday_jp'
+ #require 'holiday_japan'
+
+ list = HolidayJapan.list_year(2018)%>
+<p class="info">information</p>
+<p>
+・ページアクセス時の当日の月を取得し、表示するカレンダーです。
+アクセス時の日付もわかりやすく表示します。
+</p>
+<p>Today:<%= dateToday %></p><hr><br>
 
 <table border id="table">
     <caption id="caption"><%= today %></caption>
@@ -25,7 +30,7 @@
         <% 1.upto(6).each do|i|%>
             <tr class="calendar-row">
                 <% (d..d.end_of_week).each do|c|%>
-                    <%# 祝日当日：その日の日付を表示・today holidfayクラス・todayIDの追加　%> 
+                    <%# 祝日当日：その日の日付を表示・today holidayクラス・todayIDの追加　%> 
                     <% if c.day == dateToday.day && c.day == holidayJuly.day%>
                         <th class="today holiday" id="today"><%= c.day %></th>
                     <%#　当日：その日の日付を表示・todayクラス・todayIDの追加　%>  
