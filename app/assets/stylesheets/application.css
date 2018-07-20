@@ -13,12 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+.title {
+    margin: 0vw 4vw 0vw 0vw;
+    text-align: center;
+    font-family: "Comic Sans MS";
+    color: #DC143C;
+}
  div.info {
-    padding: 0.5em 1em;
-    margin: 2em 0;
+    padding: 0.5em 2em 0em 0em;
+    margin: 2vw 22vw;
     border: double 5px grey;
     width: 50vw;
-    text-align: center
+    text-align: center;
+}
+.data {
+    margin: 2vw 22vw;
+}
+caption#caption {
+    font-size: 1.5vw;
+}
+.tables {
+    margin: 2vw 12vw;
 }
 .days {
     width: 10vw;

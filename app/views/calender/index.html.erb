@@ -22,62 +22,72 @@ if HolidayJapan.check(dateToday) == true
 end
 %> 
 
+<div class="title">
+    <h1>Ruby Calendar</h1>
+</div>
+
 <div class="info">
-<p class="info">information</p>
+<p class="info">〜 information 〜</p>
     <p>
     ・ページアクセス時の当日の月を取得し、表示するカレンダーです。
     アクセス時の日付もわかりやすく表示します。
     </p>
     <p>
     7/20 追記：祝日判定を実装しました。
-    当日が祝日の場合、祝日名とコメントを表示します。
-    そうでない場合はその日の曜日とコメント及び次の休みまであと何日かを表示します。
+    当日が祝日の場合、祝日名とを表示します。<br>
+    違う場合はその日の曜日と次の休みまであと何日かを表示します。
     </p>
 </div>
 
-<p class="today">Today:<%= dateToday %></p>
-<p class="holidayName">今日は <%= holidayName %></p><hr><br>
-<table border id="table">
-    <caption id="caption"><%= today %></caption>
-    <tr>
-        <th class="days" id="mon">月</th>
-        <th class="days" id="tue">火</th>
-        <th class="days" id="wed">水</th>
-        <th class="days" id="thu">木</th>
-        <th class="days" id="fri">金</th>
-        <th class="days" id="sat">土</th>
-        <th class="days" id="sun">日</th>
-    </tr>
-    <tr>
-        <% d = dateToday.at_beginning_of_month.at_beginning_of_week%>
-        <% 1.upto(6).each do|i|%>
-            <tr class="calendar-row">
-                <% (d..d.end_of_week).each do|c|%>
-                    <%# 祝日当日：その日の日付を表示・today holidayクラス・todayIDの追加　%> 
-                    <% if c.day == dateToday.day && HolidayJapan.check(dateToday) == true %>
-                        <th class="today holiday" id="today"><%= c.day %></th>
-                    <%#　当日：その日の日付を表示・todayクラス・todayIDの追加　%>  
-                    <% elsif c.day == dateToday.day %>
-                        <th class="today" id="today"><%= c.day %></th>
-                    <%#　前月・次月：前月と次月の日付を表示・anotherMonthクラスの追加　%>
-                    <% elsif c.month != dateToday.month %>
-                        <th class="anotherMonthDay"><%= c.day %></th>
-                    <%#　当月の日曜を表示・sundayクラスの追加　%>  
-                    <% elsif c == d.end_of_week %>
-                        <th class="sunday"><%=  c.day %></th>
-                    <%#　当月の土曜を表示・saturdayクラスの追加　%>  
-                    <% elsif c == d.end_of_week-1 %>
-                        <th class="saturday"><%=  c.day %></th>
-                    <%#　当月の祝日を表示・holidayクラスの追加　%>  
-                    <% elsif c.day == holidayJuly.day %>
-                        <th class="holiday"><%=  c.day %></th>
-                    <%#　当月の日付を表示・weekdayクラスの追加　%>  
-                    <% elsif c.month == dateToday.month %>
-                        <th class="weekday"><%=   c.day %></th>
+<div class="data">
+    <p class="today">Today:<%= dateToday %></p>
+    <p class="holidayName">今日は <%= holidayName %></p>
+</div><hr><br>
+
+<div class="tables">
+    <table border id="table">
+        <caption id="caption"><%= today %></caption>
+        <tr>
+            <th class="days" id="mon">月</th>
+            <th class="days" id="tue">火</th>
+            <th class="days" id="wed">水</th>
+            <th class="days" id="thu">木</th>
+            <th class="days" id="fri">金</th>
+            <th class="days" id="sat">土</th>
+            <th class="days" id="sun">日</th>
+        </tr>
+        <tr>
+            <% d = dateToday.at_beginning_of_month.at_beginning_of_week%>
+            <% 1.upto(6).each do|i|%>
+                <tr class="calendar-row">
+                    <% (d..d.end_of_week).each do|c|%>
+                        <%# 祝日当日：その日の日付を表示・today holidayクラス・todayIDの追加　%> 
+                        <% if c.day == dateToday.day && HolidayJapan.check(dateToday) == true %>
+                            <th class="today holiday" id="today"><%= c.day %></th>
+                        <%#　当日：その日の日付を表示・todayクラス・todayIDの追加　%>  
+                        <% elsif c.day == dateToday.day %>
+                            <th class="today" id="today"><%= c.day %></th>
+                        <%#　前月・次月：前月と次月の日付を表示・anotherMonthクラスの追加　%>
+                        <% elsif c.month != dateToday.month %>
+                            <th class="anotherMonthDay"><%= c.day %></th>
+                        <%#　当月の日曜を表示・sundayクラスの追加　%>  
+                        <% elsif c == d.end_of_week %>
+                            <th class="sunday"><%=  c.day %></th>
+                        <%#　当月の土曜を表示・saturdayクラスの追加　%>  
+                        <% elsif c == d.end_of_week-1 %>
+                            <th class="saturday"><%=  c.day %></th>
+                        <%#　当月の祝日を表示・holidayクラスの追加　%>  
+                        <% elsif c.day == holidayJuly.day %>
+                            <th class="holiday"><%=  c.day %></th>
+                        <%#　当月の日付を表示・weekdayクラスの追加　%>  
+                        <% elsif c.month == dateToday.month %>
+                            <th class="weekday"><%=   c.day %></th>
+                        <% end %>
                     <% end %>
-                <% end %>
-            </tr>
-            <% d = d + 1.week %>
-        <% end %>
-    </tr>
-</table>
+                </tr>
+                <% d = d + 1.week %>
+            <% end %>
+        </tr>
+    </table>
+</div>
+
