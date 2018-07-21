@@ -14,10 +14,10 @@
 if HolidayJapan.check(dateToday) == true
     holidayName = HolidayJapan.name(dateToday) + ' です！ 祝日を謳歌しましょう！！'
     else
-        if  dateToday.wday != 5 || dateToday.wday != 6
-            holidayName = days[dateToday.wday]+'曜日です！ 次の休みまであと'+rest.to_s+'日です！頑張りましょう！'
+        if  dateToday.wday == 5 || dateToday.wday == 6 
+                holidayName = days[dateToday.wday]+'曜日です！ ゆっくり休みましょう！'
             else
-            holidayName = days[dateToday.wday]+'曜日です！ ゆっくり休みましょう！'
+                holidayName = days[dateToday.wday]+'曜日です！ 次の休みまであと'+rest.to_s+'日です！頑張りましょう！'
         end
 end
 %> 
